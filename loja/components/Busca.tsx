@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, Text, TextInput, View } from 'react-native'
+import { FlatList, Image, StyleSheet, Text, TextInput, View } from 'react-native'
 import React, { useState } from 'react'
 import { produtos } from '../data/Produto'
 
@@ -23,6 +23,7 @@ const Busca = () => {
             renderItem={({ item }) => (
                 <View style={styles.item}>
                     <Text style={styles.titulo}>{item.titulo}</Text>
+                    <Image style={styles.imagem} source={{ uri: item.image }} />
                     <Text style={styles.preco}>R$ {item.preco}</Text>
                 </View>
             )}
@@ -49,4 +50,5 @@ const styles = StyleSheet.create({
     },
     titulo: { fontSize: 16, fontWeight: '600' },
     preco: { color: '#2e7d32', marginTop: 4 },
+    imagem: { width: 100, height: 100, marginTop: 8 },
 })
