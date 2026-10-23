@@ -14,18 +14,16 @@ interface Character {
 const CardCharacter = () => {
     const [character, setCharacter] = useState<Character[]>([])
     const [search, setSearch] = useState<string>('')
-    const [error, setError] = useState<string | null>('')
-    const [loading, setLoading] = useState<boolean>()
+    const [error, setError] = useState<string | null>(null)
+    const [loading, setLoading] = useState<boolean>(true)
     
 
     async function findCharacter() {
-        setLoading(true)
-        try {
+      try {
             const res = await fetch('https://rickandmortyapi.com/api/character/')
             if(!res.ok) throw new Error('Falha na requisição')
             const data = await res.json()
             setCharacter(data.results)
-            setLoading(false)
         } catch {
             setError('Não foi possível listar os personagens.')
         } finally {
@@ -40,7 +38,7 @@ const CardCharacter = () => {
     
     if(loading) {
       return (
-          <View>
+          <View style={styles.loading}>
             <ActivityIndicator size="large"/>
             <Text>Loading...</Text>
           </View>
@@ -135,5 +133,10 @@ const styles = StyleSheet.create({
   error: {
     color: 'red',
     textAlign: 'center'
+  },
+  loading: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 })
